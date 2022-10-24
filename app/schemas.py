@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from pydantic import BaseModel
 
@@ -30,12 +30,12 @@ class LetterCreate(LetterBase):
     pass
 
 class OwnerBase(BaseModel):
-    email: str
-    username: str
-    personal_url: str
+    email: Union[str, None]
+    username: Union[str, None]
+    personal_url: Union[str, None]
 
 class Owner(OwnerBase):
-    id: int
+    id: Union[int, None]
 
     class Config:
         orm_mode = True

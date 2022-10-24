@@ -1,27 +1,41 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.model import Owner
-from app.repository.CharacterRepository import CharacterRepository
+from app.repository.OwnerRepository import OwnerRepository
 from app.database import get_db
+from app.schemas import Owner
+from operator import attrgetter
+from secrets import token_urlsafe
+from fastapi import HTTPException
 
 router = APIRouter()
 
-@router.get("/users/{user_id}", tags=["users"])
-async def get_users(user_id:int, db: Session = Depends(get_db)):
-    db_item = CharacterRepository.fetch_by_id(db, _id = 1)
+@router.get("/users/{url}", tags=["users"], response_model=Owner, response_model_exclude_none=True)
+async def get_users(url:str, db: Session = Depends(get_db)):
+    owner = await OwnerRepository.fetch_by_url(db, url)
 
-    return await CharacterRepository.create(db=db, character={
-        "image_url":"sdasd"
-    })
+    setattr(owner, 'personal_url', None)
+    setattr(owner, 'email', None)
 
-@router.get("/users/{user_id}/encryption", tags=["users"])
-async def get_users_url(db: Session = Depends(get_db)):
-    return [{
-        "username": "a"
-    },
-    {
-        "username": "b"
-    }]
+    return owner
+
+@router.patch("/users/{user_id}", tags=["users"])
+async def get_users(user_id:int, owner: Owner, db: Session = Depends(get_db)):
+    return await OwnerRepository.update_username(db, owner)
+
+@router.get("/users/{user_id}/encryption", tags=["users"], response_model=Owner, response_model_exclude_none=True)
+async def get_users_url(user_id:int, db: Session = Depends(get_db)):
+    owner = await OwnerRepository.fetch_by_id(db, user_id)
+
+    if owner.personal_url:
+        setattr(owner, 'id', None)
+        setattr(owner, 'email', None)
+        
+        return owner
+
+    setattr(owner, 'personal_url', token_urlsafe(16))
+
+    return await OwnerRepository.update_personal_url(db, owner)
 
 @router.get("/stickers", tags=["stickers"])
 async def get_stickers(db: Session = Depends(get_db)):
