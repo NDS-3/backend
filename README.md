@@ -16,3 +16,7 @@
     ```bash
     $ deactivate
     ```
+- 로컬 서버 실행
+    ```bash
+    $ uvicorn app.main:app --reload
+    ```
