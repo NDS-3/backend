@@ -7,6 +7,12 @@ from fastapi import FastAPI
 from .router import users, letters, stickers
 from app.database import engine, Base
 
+from starlette.middleware.cors import CORSMiddleware
+
+origins = [
+    "localhost:3000"
+]
+
 def create_app():
     """
     앱 함수 실행
@@ -15,6 +21,15 @@ def create_app():
     app = FastAPI()
 
     Base.metadata.create_all(bind=engine)
+
+    # 미들웨어 정의
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+)
 
     # 라우터 정의
     app.include_router(users.router)
