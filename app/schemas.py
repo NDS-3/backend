@@ -1,6 +1,6 @@
 from typing import List, Optional, Union
-
-from pydantic import BaseModel
+from datetime import datetime
+from pydantic import BaseModel, Field
 
 class StickerBase(BaseModel):
     image_url: str
@@ -15,16 +15,22 @@ class StickerCreate(StickerBase):
     pass
 
 class LetterBase(BaseModel):
-    owner_id : int
-    sticker_id : int
-    content : str
-    password : str
+    owner_id : Union[int, None] = Field(default=None, alias='ownerId')
+    sticker_id : Union[int, None] = Field(default=None, alias='stickerId')
+    content : Union[str, None]
+    password : Union[str, None]
+    created_at : Union[datetime, None]
+    modified_at : Union[datetime, None]
 
 class Letter(LetterBase):
-    id: int
+    id: Union[int, None]
 
     class Config:
         orm_mode = True
+
+class LetterDetail(LetterBase):
+    id: Union[int, None]
+    sticker: Union[Sticker, None]
 
 class LetterCreate(LetterBase):
     pass
