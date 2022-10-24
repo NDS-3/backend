@@ -28,6 +28,13 @@ class Letter(LetterBase):
     class Config:
         orm_mode = True
 
+class LetterModify(LetterBase):
+    id: Union[int, None] = Field(default=None, alias='letterId')
+
+    class Config:
+        orm_mode = True
+    
+
 class LetterDetail(LetterBase):
     id: Union[int, None]
     sticker: Union[Sticker, None]

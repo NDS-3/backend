@@ -1,7 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
+from starlette.responses import Response
+from starlette.status import HTTP_204_NO_CONTENT
 from sqlalchemy.orm import Session
 from app.model import Letter
-from app.schemas import Letter, LetterDetail
+from app.schemas import Letter, LetterDetail, LetterModify
 from app.repository.LetterRepository import LetterRepository
 from app.repository.OwnerRepository import OwnerRepository
 from app.repository.StickerRepository import StickerRepository
@@ -30,19 +32,21 @@ async def get_letter_detail(user_id: int, letter_id: int, letter: Letter, db: Se
 
     return response_letter
 
-@router.put("/letters/{letter_id}", tags=["letters"])
-async def update_letters():
+@router.patch("/letters/{letter_id}", tags=["letters"], response_model=LetterDetail, response_model_exclude_none=True)
+async def update_letters(letter: LetterModify, db: Session = Depends(get_db)):
+    db_letter = await LetterRepository.update(db, letter)
+    sticker = await StickerRepository.fetch_by_id(db, _id=db_letter.sticker_id)
 
-    return {}
+    response_letter = LetterDetail(id=db_letter.id, sticker=sticker, content=db_letter.content)
+
+    return response_letter
 
 @router.delete("/letters/{letter_id}", tags=["letters"])
-async def delete_letters():
-    return [{
-        "lettername": "a"
-    },
-    {
-        "lettername": "b"
-    }]
+async def delete_letters(letter_id: int, db: Session = Depends(get_db)):
+    db_letter = await LetterRepository.fetch_by_id(db, _id=letter_id)
+    await LetterRepository.delete(db, db_letter)
+
+    return Response(status_code=HTTP_204_NO_CONTENT)
 
 @router.post("/users/{user_id}/letters", tags=["letters"], response_model=LetterDetail, response_model_exclude_none=True)
 async def create_letters(user_id: int, letter: Letter, db: Session = Depends(get_db)):
