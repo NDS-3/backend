@@ -10,7 +10,8 @@ from app.database import engine, Base
 from starlette.middleware.cors import CORSMiddleware
 
 origins = [
-    "localhost:3000"
+    "http://localhost:3000",
+    "http://localhost"
 ]
 
 def create_app():
@@ -35,6 +36,7 @@ def create_app():
     app.include_router(users.router)
     app.include_router(letters.router)
     app.include_router(stickers.router)
+    
     return app
 
 
