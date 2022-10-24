@@ -4,7 +4,7 @@ from app.model.Letter import Letter
 import app.schemas as schemas
 
 class LetterRepository:
-    async def create(db: Session, character: schemas.LetterCreate):
+    async def create(db: Session, letter: schemas.LetterCreate):
         db_item = Letter()
         db.add(db_item)
         db.commit()

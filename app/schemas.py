@@ -2,21 +2,21 @@ from typing import List, Optional, Union
 
 from pydantic import BaseModel
 
-class CharacterBase(BaseModel):
+class StickerBase(BaseModel):
     image_url: str
 
-class Character(CharacterBase):
+class Sticker(StickerBase):
     id: int
 
     class Config:
         orm_mode = True
 
-class CharacterCreate(CharacterBase):
+class StickerCreate(StickerBase):
     pass
 
 class LetterBase(BaseModel):
     owner_id : int
-    character_id : int
+    sticker_id : int
     content : str
     password : str
 
