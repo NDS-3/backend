@@ -20,6 +20,11 @@ class LetterRepository:
 
         return db_letter
 
+    async def fetch_all(db: Session, owner_id: int, page: int):
+        db_letter_list = db.query(Letter).filter(Letter.owner_id == owner_id).all()
+
+        return db_letter_list
+    
     async def update(db: Session, letter: schemas.LetterModify):
         db_letter = await LetterRepository.fetch_by_id(db, letter.id)
 
