@@ -36,9 +36,3 @@ async def get_users_url(user_id:int, db: Session = Depends(get_db)):
     setattr(owner, 'personal_url', token_urlsafe(16))
 
     return await OwnerRepository.update_personal_url(db, owner)
-
-@router.get("/stickers", tags=["stickers"])
-async def get_stickers(db: Session = Depends(get_db)):
-    stcikers =  await CharacterRepository.fetch_all(db=db)
-
-    return stcikers
