@@ -20,6 +20,7 @@ class OwnerRepository:
             raise HTTPException(status_code=400, detail="Owner not found")
 
         setattr(db_owner, "username", owner.username)
+
         db.commit()
         db.refresh(db_owner)
 
@@ -32,6 +33,7 @@ class OwnerRepository:
             raise HTTPException(status_code=400, detail="Owner not found")
         
         setattr(db_owner, "personal_url", owner.personal_url)
+        
         db.commit()
         db.refresh(db_owner)
 

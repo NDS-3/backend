@@ -27,7 +27,7 @@ async def get_users(user_id:int, owner: Owner, db: Session = Depends(get_db)):
 async def get_users_url(user_id:int, db: Session = Depends(get_db)):
     owner = await OwnerRepository.fetch_by_id(db, user_id)
 
-    if owner.personal_url:
+    if owner.exists_url:
         setattr(owner, 'id', None)
         setattr(owner, 'email', None)
         
