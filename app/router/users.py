@@ -41,8 +41,3 @@ async def get_users_url(auth: CognitoToken = Depends(cognito_kr.auth_required), 
     setattr(owner, 'personal_url', token_urlsafe(16))
 
     return await OwnerRepository.update_personal_url(db, owner)
-
-@router.get("/test")
-async def test(auth: CognitoToken = Depends(cognito_kr.auth_required)):
-    print(auth.username)
-    return {"message": "Hello world"}
