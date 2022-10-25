@@ -19,10 +19,14 @@ async def get_letters(user_id: int, page: int=0, db: Session = Depends(get_db)):
     db_letter_list = await LetterRepository.fetch_all(db, owner_id=user_id, page=page)
     # page로 가져오기
     result = []
+
     for db_letter in db_letter_list:
         result.append(await convertLetterDetail(db, db_letter))
 
-    return result[page*10:(page+1)*10]
+    response_data = result[page*10:(page+1)*10]
+    response_data.extend([{} for _ in range(10 - len(response_data))])
+    
+    return response_data
 
 async def convertLetterDetail(db, letter: Letter):
     sticker = await StickerRepository.fetch_by_id(db, _id=letter.sticker_id)
