@@ -31,7 +31,7 @@ class OwnerRepository:
 
         if not db_owner:
             raise HTTPException(status_code=400, detail="Owner not found")
-        
+
         setattr(db_owner, "personal_url", owner.personal_url)
         
         db.commit()

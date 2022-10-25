@@ -18,7 +18,7 @@ async def get_users(url:str, db: Session = Depends(get_db)):
 
     return owner
 
-@router.patch("/users/{user_id}", tags=["users"])
+@router.patch("/users/{user_id}", tags=["users"], response_model=Owner)
 async def update_users(user_id:int, owner: Owner, db: Session = Depends(get_db)):
     if owner.id is None or owner.username is None:
         raise HTTPException(status_code=400, detail="id, username이 필요합니다.")
@@ -33,6 +33,8 @@ async def get_users_url(user_id:int, db: Session = Depends(get_db)):
         setattr(owner, 'id', None)
         setattr(owner, 'email', None)
         
+        print(owner.__dict__)
+
         return owner
 
     setattr(owner, 'personal_url', token_urlsafe(16))

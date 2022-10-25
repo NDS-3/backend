@@ -10,6 +10,7 @@ class Sticker(StickerBase):
 
     class Config:
         orm_mode = True
+        allow_population_by_field_name = True
 
 class StickerCreate(StickerBase):
     pass
@@ -27,12 +28,14 @@ class Letter(LetterBase):
 
     class Config:
         orm_mode = True
+        allow_population_by_field_name = True
 
 class LetterModify(LetterBase):
     id: Union[int, None] = Field(default=None, alias='letterId')
 
     class Config:
         orm_mode = True
+        allow_population_by_field_name = True
     
 
 class LetterDetail(LetterBase):
@@ -45,13 +48,14 @@ class LetterCreate(LetterBase):
 class OwnerBase(BaseModel):
     email: Union[str, None]
     username: Union[str, None]
-    personal_url: Union[str, None]
+    personal_url: Union[str, None] = Field(default=None, alias='personalUrl')
 
 class Owner(OwnerBase):
     id: Union[int, None]
 
     class Config:
         orm_mode = True
+        allow_population_by_field_name = True
 
 class OwnerCreate(OwnerBase):
     pass
