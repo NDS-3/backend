@@ -8,6 +8,10 @@ from .router import users, letters, stickers
 from app.database import engine, Base
 
 from starlette.middleware.cors import CORSMiddleware
+from fastapi_cognito import CognitoAuth, CognitoSettings
+from .authconfig import settings
+
+# default userpool(eu) will be used if there is no userpool_name param provided.
 
 origins = [
     "http://localhost:3000",
@@ -36,7 +40,7 @@ def create_app():
     app.include_router(users.router)
     app.include_router(letters.router)
     app.include_router(stickers.router)
-    
+
     return app
 
 

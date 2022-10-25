@@ -11,6 +11,7 @@ class Owner(Base):
     email = Column(String(255), nullable=False)
     username = Column(String(255), nullable=True)
     personal_url = Column(String(255), nullable=True)
+    cognito_id = Column(String(255), nullable=True)
 
     def exists_url(self):
-        return self.personal_url is not None
+        return self.personal_url != None

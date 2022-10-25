@@ -48,7 +48,7 @@ class LetterCreate(LetterBase):
 
 class OwnerBase(BaseModel):
     email: Union[str, None]
-    username: Union[str, None] = Query(default=None, min_length=2, max_length=8, regex="^[a-zA-Z0-9가-힣]*$")
+    username: Union[str, None] = Query(default=None, min_length=2, max_length=120)
     personal_url: Union[str, None] = Field(default=None, alias='personalUrl')
 
 class Owner(OwnerBase):

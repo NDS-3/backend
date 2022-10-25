@@ -54,3 +54,11 @@ class OwnerRepository:
             raise HTTPException(status_code=400, detail="Owner not found")
 
         return db_owner
+
+    async def get_user(db: Session, auth):
+        db_owner = db.query(Owner).filter(Owner.cognito_id == auth.username).first()
+
+        if not db_owner:
+            raise HTTPException(status_code=400, detail="Owner not found")
+
+        return db_owner
