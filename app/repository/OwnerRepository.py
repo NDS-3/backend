@@ -13,8 +13,8 @@ class OwnerRepository:
 
         return db_item
 
-    async def update_username(db: Session, owner: schemas.Owner):
-        db_owner = db.get(Owner, owner.id)
+    async def update_username(db: Session, owner: schemas.Owner, auth):
+        db_owner = db.query(Owner).filter(Owner.cognito_id == auth.username).first()
 
         if not db_owner:
             raise HTTPException(status_code=400, detail="Owner not found")
