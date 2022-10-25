@@ -20,7 +20,7 @@ async def get_users(url:str, db: Session = Depends(get_db)):
     return owner
 
 @router.patch("/users/{user_id}", tags=["users"])
-async def get_users(user_id:int, owner: Owner, db: Session = Depends(get_db)):
+async def update_users(user_id:int, owner: Owner, db: Session = Depends(get_db)):
     return await OwnerRepository.update_username(db, owner)
 
 @router.get("/users/{user_id}/encryption", tags=["users"], response_model=Owner, response_model_exclude_none=True)
