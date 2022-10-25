@@ -3,10 +3,10 @@ from datetime import datetime
 from pydantic import BaseModel, Field
 
 class StickerBase(BaseModel):
-    image_url: str
+    image_url: Union[str, None] = Field(default=None, alias='imageUrl')
 
 class Sticker(StickerBase):
-    id: int
+    id: Union[int, None]
 
     class Config:
         orm_mode = True
