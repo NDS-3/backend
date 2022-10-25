@@ -32,8 +32,6 @@ async def get_users_url(user_id:int, db: Session = Depends(get_db)):
     if owner.exists_url:
         setattr(owner, 'id', None)
         setattr(owner, 'email', None)
-        
-        print(owner.__dict__)
 
         return owner
 
