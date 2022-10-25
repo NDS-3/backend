@@ -30,6 +30,7 @@ class LetterRepository:
 
         setattr(db_letter, 'sticker_id', letter.sticker_id)
         setattr(db_letter, 'content', letter.content)
+        setattr(db_letter, 'modified_at', datetime.now())
 
         db.commit()
         db.refresh(db_letter)
