@@ -16,7 +16,7 @@ router = APIRouter()
 
 @router.get("/users/{user_id}/letters", tags=["letters"], response_model=List, response_model_exclude_none=True)
 async def get_letters(user_id: int, page: int=0, db: Session = Depends(get_db)):
-    db_letter_list = await LetterRepository.fetch_all(db, owner_id=user_id, page=page)
+    db_letter_list = await LetterRepository.fetch_all(db, owner_id=user_id)
     # page로 가져오기
     result = []
 

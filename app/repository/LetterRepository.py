@@ -6,6 +6,11 @@ import app.schemas as schemas
 
 class LetterRepository:
     async def create(db: Session, letter: schemas.LetterCreate):
+        letter_list = await LetterRepository.fetch_all(db, letter.owner_id)
+        print(len(letter_list))
+        if len(letter_list) >= 30:
+            raise HTTPException(status_code=400, detail="한 사람당 편지의 개수는 30개로 제한됩니다.")
+
         db_letter = Letter(
             owner_id=letter.owner_id,
             sticker_id=letter.sticker_id,
@@ -20,7 +25,7 @@ class LetterRepository:
 
         return db_letter
 
-    async def fetch_all(db: Session, owner_id: int, page: int):
+    async def fetch_all(db: Session, owner_id: int):
         db_letter_list = db.query(Letter).filter(Letter.owner_id == owner_id).all()
 
         return db_letter_list
