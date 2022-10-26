@@ -4,12 +4,12 @@ from typing import Optional
 import uvicorn
 from fastapi import FastAPI
 
-from .router import users, letters, stickers
+from app.router import users, letters, stickers
 from app.database import engine, Base
 
 from starlette.middleware.cors import CORSMiddleware
 from fastapi_cognito import CognitoAuth, CognitoSettings
-from .authconfig import settings
+from app.authconfig import settings
 
 # default userpool(eu) will be used if there is no userpool_name param provided.
 
