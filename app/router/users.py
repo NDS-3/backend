@@ -33,7 +33,6 @@ async def get_users_url(auth: CognitoToken = Depends(cognito_kr.auth_required), 
     owner = await OwnerRepository.get_user(db, auth)
 
     if owner.exists_url():
-        setattr(owner, 'id', None)
         setattr(owner, 'email', None)
 
         return owner
