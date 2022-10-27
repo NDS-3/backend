@@ -58,7 +58,7 @@
     }
   ],
   "placementConstraints": [],
-  "memory": null,
+  "memory": 1024,
   "taskRoleArn": "arn:aws:iam::101179612206:role/ecsTaskExecutionRole",
   "compatibilities": [
     "FARGATE",
@@ -116,7 +116,7 @@
   ],
   "networkMode": "awsvpc",
   "runtimePlatform": null,
-  "cpu": null,
+  "cpu": 512,
   "revision": 1,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
