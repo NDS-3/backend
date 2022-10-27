@@ -58,7 +58,7 @@
     }
   ],
   "placementConstraints": [],
-  "memory": 1024,
+  "memory": "1024",
   "taskRoleArn": null,
   "compatibilities": [
     "FARGATE",
@@ -119,7 +119,7 @@
     "operatingSystemFamily": "LINUX",
     "cpuArchitecture": null
   },
-  "cpu": 512,
+  "cpu": "512",
   "revision": 1,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
