@@ -23,8 +23,8 @@ async def get_users(url:str, db: Session = Depends(get_db)):
 
 @router.patch("/users/me", tags=["users"], response_model=Owner)
 async def update_users(owner: Owner, auth: CognitoToken = Depends(cognito_kr.auth_required), db: Session = Depends(get_db)):
-    if owner.id is None or owner.username is None:
-        raise HTTPException(status_code=400, detail="id, username이 필요합니다.")
+    if owner.username is None:
+        raise HTTPException(status_code=400, detail="username이 필요합니다.")
         
     return await OwnerRepository.update_username(db, owner, auth)
 
