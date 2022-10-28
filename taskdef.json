@@ -1,6 +1,6 @@
 {
   "ipcMode": null,
-  "executionRoleArn": "arn:aws:iam::101179612206:role/ecsTaskExecutionRole",
+  "executionRoleArn": "arn:aws:iam::035761926435:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
       "dnsSearchDomains": null,
@@ -54,7 +54,7 @@
       "dockerLabels": null,
       "systemControls": null,
       "privileged": null,
-      "name": "backend_v1"
+      "name": "backend"
     }
   ],
   "placementConstraints": [],
@@ -64,7 +64,7 @@
     "FARGATE",
     "EC2"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:101179612206:task-definition/backend-taskdef:1",
+  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:035761926435:task-definition/backend-taskdef:1",
   "family": "backend-taskdef",
   "requiresAttributes": [
     {
