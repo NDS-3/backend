@@ -1,4 +1,8 @@
 from pydantic import BaseSettings
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 class Settings(BaseSettings):
     check_expiration = True
@@ -6,9 +10,9 @@ class Settings(BaseSettings):
     jwt_header_name = "Authorization"
     userpools = {
         "kr": {
-            "region": "ap-northeast-2",
-            "userpool_id": "ap-northeast-2_qC6hyIfPz",
-            "app_client_id": "1ursigm6o6il7khipt60tdlfb1"
+            "region": os.environ.get('AWS_REGION'),
+            "userpool_id": os.environ.get('AWS_COGNITO_USERPOOL_ID'),
+            "app_client_id": os.environ.get('AWS_COGNITO_APP_CLIENT_ID')
         },
     }
 
