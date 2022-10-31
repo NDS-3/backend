@@ -24,13 +24,13 @@ async def get_letters(user_id: int, page: int=0, db: Session = Depends(get_db)):
         result.append(await convertLetterDetail(db, db_letter))
 
     response_data = result[page*10:(page+1)*10]
-    response_data.extend([{} for _ in range(10 - len(response_data))])
+    response_data.extend([{"id": -1, "sticker": {"id": -1, "imageUrl": ""}} for _ in range(10 - len(response_data))])
     
     return response_data
 
 async def convertLetterDetail(db, letter: Letter):
     sticker = await StickerRepository.fetch_by_id(db, _id=letter.sticker_id)
-    response_letter = LetterDetail(id=letter.id, sticker=sticker, content=letter.content)
+    response_letter = LetterDetail(id=letter.id, sticker=sticker)
 
     return response_letter
 
