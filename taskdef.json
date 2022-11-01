@@ -31,7 +31,7 @@
           "value": "12a6c6kgh8lulflod7rc3kndoj"
         },
         {
-          "name": "AWS_COGNITO_USERPOOL",
+          "name": "AWS_COGNITO_USERPOOL_ID",
           "value": "ap-northeast-2_FLZfKXvP0"
         },
         {
