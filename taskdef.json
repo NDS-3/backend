@@ -25,7 +25,40 @@
       "command": null,
       "linuxParameters": null,
       "cpu": 256,
-      "environment": [],
+      "environment": [
+        {
+          "name": "AWS_COGNITO_APP_CLIENT_ID",
+          "value": "12a6c6kgh8lulflod7rc3kndoj"
+        },
+        {
+          "name": "AWS_COGNITO_USERPOOL",
+          "value": "ap-northeast-2_FLZfKXvP0"
+        },
+        {
+          "name": "AWS_REGION",
+          "value": "ap-northeast-2"
+        },
+        {
+          "name": "DB_DATABASE_NAME",
+          "value": "project"
+        },
+        {
+          "name": "DB_HOST",
+          "value": "project.cxwxccqpmdve.ap-northeast-2.rds.amazonaws.com"
+        },
+        {
+          "name": "DB_PASSWORD",
+          "value": "12341234"
+        },
+        {
+          "name": "DB_PORT",
+          "value": "3306"
+        },
+        {
+          "name": "DB_USERNAME",
+          "value": "admin"
+        }
+      ],
       "resourceRequirements": null,
       "ulimits": null,
       "dnsServers": null,
