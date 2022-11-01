@@ -1,6 +1,6 @@
 {
   "ipcMode": null,
-  "executionRoleArn": "arn:aws:iam::035761926435:role/ecsTaskExecutionRole",
+  "executionRoleArn": "arn:aws:iam::035761926435:role/ecstaskexecutionRole",
   "containerDefinitions": [
     {
       "dnsSearchDomains": null,
@@ -9,7 +9,7 @@
         "logDriver": "awslogs",
         "secretOptions": null,
         "options": {
-          "awslogs-group": "/ecs/backend-taskdef",
+          "awslogs-group": "/ecs/project-backend",
           "awslogs-region": "ap-northeast-2",
           "awslogs-stream-prefix": "ecs"
         }
@@ -61,11 +61,11 @@
   "memory": "1024",
   "taskRoleArn": null,
   "compatibilities": [
-    "FARGATE",
-    "EC2"
+    "EC2",
+    "FARGATE"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:035761926435:task-definition/backend-taskdef:1",
-  "family": "backend-taskdef",
+  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:035761926435:task-definition/project-backend:1",
+  "family": "project-backend",
   "requiresAttributes": [
     {
       "targetId": null,
@@ -101,13 +101,19 @@
       "targetId": null,
       "targetType": null,
       "value": null,
-      "name": "com.amazonaws.ecs.capability.task-iam-role"
+      "name": "ecs.capability.execution-role-ecr-pull"
     },
     {
       "targetId": null,
       "targetType": null,
       "value": null,
-      "name": "ecs.capability.execution-role-ecr-pull"
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.task-eni"
     }
   ],
   "pidMode": null,
@@ -115,10 +121,7 @@
     "FARGATE"
   ],
   "networkMode": "awsvpc",
-  "runtimePlatform": {
-    "operatingSystemFamily": "LINUX",
-    "cpuArchitecture": null
-  },
+  "runtimePlatform": null,
   "cpu": "512",
   "revision": 1,
   "status": "ACTIVE",
