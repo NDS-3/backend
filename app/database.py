@@ -14,6 +14,8 @@ DB_PORT=os.environ.get('DB_PORT')
 DB_DATABASE_NAME=os.environ.get('DB_DATABASE_NAME')
 DB_URL = f'{DB_ENGINE}://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_DATABASE_NAME}'
 
+print(f'DEBUG: {DB_URL}')
+
 engine = create_engine(DB_URL, encoding='utf-8')
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
