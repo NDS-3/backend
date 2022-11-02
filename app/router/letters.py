@@ -10,9 +10,12 @@ from app.repository.StickerRepository import StickerRepository
 from app.database import get_db
 from passlib.hash import pbkdf2_sha256 as password_encoder
 from fastapi_utils.camelcase import camel2snake, snake2camel
+from app.authconfig import settings
+from fastapi_cognito import CognitoToken, CognitoAuth, CognitoSettings
 from typing import List
 
 router = APIRouter()
+cognito_kr = CognitoAuth(settings=CognitoSettings.from_global_settings(settings), userpool_name="kr")
 
 @router.get("/users/{user_id}/letters", tags=["letters"], response_model=List, response_model_exclude_none=True)
 async def get_letters(user_id: int, page: int=0, db: Session = Depends(get_db)):
@@ -35,7 +38,7 @@ async def convertLetterDetail(db, letter: Letter):
     return response_letter
 
 @router.post("/users/{user_id}/letters/{letter_id}", tags=["letters"], response_model=LetterDetail, response_model_exclude_none=True)
-async def get_letter_detail(user_id: int, letter_id: int, letter: Letter, db: Session = Depends(get_db)):
+async def get_letter_detail_by_password(user_id: int, letter_id: int, letter: Letter, db: Session = Depends(get_db)):
     db_letter = await LetterRepository.fetch_by_id(db, _id=letter_id)
     incorrect_password = not password_encoder.verify(letter.password, db_letter.password)
 
@@ -43,6 +46,15 @@ async def get_letter_detail(user_id: int, letter_id: int, letter: Letter, db: Se
         raise HTTPException(status_code=403, detail='Incorrect Password')
 
     sticker = await StickerRepository.fetch_by_id(db, _id=db_letter.sticker_id)
+    response_letter = LetterDetail(id=db_letter.id, sticker=sticker, content=db_letter.content)
+
+    return response_letter
+
+@router.get("/letters/{letter_id}", tags=["letters"], response_model=LetterDetail, response_model_exclude_none=True)
+async def get_letter_detail_by_jwt(letter_id: int, auth: CognitoToken = Depends(cognito_kr.auth_required), db: Session = Depends(get_db)):    
+    db_letter = await LetterRepository.fetch_by_id(db, _id=letter_id)
+    sticker = await StickerRepository.fetch_by_id(db, _id=db_letter.sticker_id)
+
     response_letter = LetterDetail(id=db_letter.id, sticker=sticker, content=db_letter.content)
 
     return response_letter
