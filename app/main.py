@@ -4,7 +4,7 @@ from typing import Optional
 import uvicorn
 from fastapi import FastAPI
 
-from app.router import users, letters, stickers
+from app.router import users, letters, stickers, days
 from app.database import engine, Base
 
 from starlette.middleware.cors import CORSMiddleware
@@ -41,6 +41,7 @@ def create_app():
     app.include_router(users.router)
     app.include_router(letters.router)
     app.include_router(stickers.router)
+    app.include_router(days.router)
 
     return app
 
