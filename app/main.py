@@ -16,7 +16,7 @@ from app.authconfig import settings
 origins = [
     "http://localhost:3000",
     "http://localhost",
-    "https://hjjeong.xyz"
+    "https://3team.shop"
 ]
 
 def create_app():
