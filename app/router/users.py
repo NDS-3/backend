@@ -32,15 +32,15 @@ async def update_users(owner: Owner, auth: CognitoToken = Depends(cognito_kr.aut
 
 @router.get("/users/me/encryption", tags=["users"], response_model=Owner, response_model_exclude_none=True)
 async def get_users_url(auth: CognitoToken = Depends(cognito_kr.auth_required), db: Session = Depends(get_db)):
-    if util.is_passed_basedate():
-        raise HTTPException(status_code=400, detail="사용할 수 없습니다.")
-
     owner = await OwnerRepository.get_user(db, auth)
 
     if owner.exists_url():
         setattr(owner, 'email', None)
 
         return owner
+
+    if util.is_passed_basedate():
+        raise HTTPException(status_code=400, detail="사용할 수 없습니다.")
 
     setattr(owner, 'personal_url', token_urlsafe(16))
 
