@@ -1,6 +1,6 @@
 from datetime import datetime
 
-BASE_DATE = datetime(2022, 11, 4)
+BASE_DATE = datetime(2022, 11, 11)
 
 class Util:
     def is_passed_basedate(self):
